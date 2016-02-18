@@ -58,7 +58,8 @@ If any request fails, Honeybadger's "context" for this error will include your r
       "abc": "xyz"
     }
   }
-}```
+}
+```
 
 
 ## Development
