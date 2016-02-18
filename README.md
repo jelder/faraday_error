@@ -37,7 +37,7 @@ end
 And that's it. Make a request as you normally would.
 ```ruby
 connection.post do |req|
-  req.url '/503' # Demo server included.
+  req.url '/503'
   req.headers['Content-Type'] = 'application/json'
   req.body = JSON.generate(abc: "xyz")
 end
@@ -58,7 +58,8 @@ If any request fails, Honeybadger's "context" for this error will include your r
       "abc": "xyz"
     }
   }
-}```
+}
+```
 
 
 ## Development
@@ -66,6 +67,8 @@ If any request fails, Honeybadger's "context" for this error will include your r
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+The included [RestReflector](../spec/rest_reflector.rb) Sinatra app is suitable for making requests that a guaranteed to fail in particlar ways.
 
 ## Contributing
 
