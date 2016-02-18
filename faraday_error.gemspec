@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "faraday_error"
   spec.version       = FaradayError::VERSION
   spec.authors       = ["Jacob Elder"]
-  spec.email         = ["jacob@boundless.com"]
+  spec.email         = ["jacob.elder@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A Faraday middleware for adding request parameters to your exception tracker.}
+  spec.description   = File.read("README.md")
+  spec.homepage      = "https://github.com/jelder/faraday_error/"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "sinatra", "~> 1.4.7"
-  spec.add_development_dependency "honeybadger", "~> 2.4.1"
-  spec.add_development_dependency "newrelic_rpm", "~> 3.14.0"
+  spec.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.7'
+  spec.add_development_dependency 'honeybadger', '~> 2.4', '>= 2.4.1'
+  spec.add_development_dependency 'newrelic_rpm', '~> 3.14', '>= 3.14.0'
 end
