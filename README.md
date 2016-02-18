@@ -1,4 +1,5 @@
 # FaradayError
+[![Gem Version](https://badge.fury.io/rb/faraday_error.svg)](https://badge.fury.io/rb/faraday_error)
 
 A [Faraday](https://github.com/lostisland/faraday) middleware for adding request parameters to your exception tracker.
 
