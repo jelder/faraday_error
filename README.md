@@ -1,8 +1,11 @@
 # FaradayError
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/faraday_error`. To experiment with that code, run `bin/console` for an interactive prompt.
+A [Faraday](https://github.com/lostisland/faraday) middleware for adding request parameters to your exception tracker.
 
-TODO: Delete this and the text above, and describe your gem
+### Supports
+ - [Honeybadger](https://www.honeybadger.io/)
+ - [NewRelic](http://newrelic.com/)
+ - Your favorite thing, as soon as you make a pull request!
 
 ## Installation
 
@@ -22,7 +25,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure your Faraday connection to use this middleware. You can optionally specify a name; defaults to `faraday`. It is expected that you also use `Faraday::Response::RaiseError` somewhere in your stack.
+```ruby
+connection = Faraday.new(url: 'http://localhost:4567') do |faraday|
+  faraday.use       FaradayError::Middleware, name: "example_request"
+  faraday.use       Faraday::Response::RaiseError
+  faraday.adapter   Faraday.default_adapter
+end
+```
+
+And that's it. Make a request as you normally would.
+```ruby
+connection.post do |req|
+  req.url '/503' # Demo server included.
+  req.headers['Content-Type'] = 'application/json'
+  req.body = JSON.generate(abc: "xyz")
+end
+```
+
+If any request fails, Honeybadger's "context" for this error will include your request parameters. If sending JSON or `application/x-www-form-urlencoded`, these will be included in parsed form.
+```json
+{
+  "example_request": {
+    "method": "post",
+    "url": "http://localhost:4567/503",
+    "request_headers": {
+      "User-Agent": "Faraday v0.9.2",
+      "Content-Type": "application/json"
+    },
+    "body_length": 13,
+    "body": {
+      "abc": "xyz"
+    }
+  }
+}```
+
 
 ## Development
 
@@ -32,7 +69,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/faraday_error. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jelder/faraday_error. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
